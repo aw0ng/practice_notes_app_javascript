@@ -1,3 +1,7 @@
+function formatTimestamp(timestamp) {
+  return new Date(timestamp).toUTCString();
+}
+
 var notes = [
   { id: 1, body: "This is a first test ", timestamp: Date.now() },
   { id: 2, body: "This is a second test", timestamp: Date.now() },
@@ -10,7 +14,7 @@ notes.forEach(function (note) {
   htmlString += `
     <div class="note-selector">
       <p class="note-selector-title">${note.body}</p>
-      <p class="note-selector-timestamp">${note.timestamp}</p>
+      <p class="note-selector-timestamp">${formatTimestamp(note.timestamp)}</p>
     </div>
     `;
 });
