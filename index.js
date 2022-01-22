@@ -9,7 +9,12 @@ function formatTimestamp(timestamp) {
 }
 
 function formatTitle(body) {
-  return body.substring(0, 20);
+  var maxLength = 20;
+  if (body.length > maxLength) {
+    return body.substring(0, maxLength - 3) + "...";
+  } else {
+    return body;
+  }
 }
 
 var notes = [
