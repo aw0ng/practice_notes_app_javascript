@@ -12,22 +12,33 @@ function formatTitle(body) {
   var maxLength = 20;
   if (body.length > maxLength) {
     return body.substring(0, maxLength - 3) + "...";
+  } else if (body.length === 0) {
+    return "New Note";
   } else {
     return body;
   }
 }
 
+function selectNote($note) {
+  console.log("selectNote", $note);
+  var $activeNote = document.querySelector(".note-selector.active");
+  if ($activeNote) {
+    $activeNote.classList.remove("active");
+  }
+  $note.classList.add("active");
+}
+
 var notes = [
-  { id: 1, body: "This is a first test ", timestamp: Date.now() - 300000000 },
+  { id: 1, body: "This is a first test", timestamp: Date.now() - 300000000 },
   { id: 2, body: "This is a second test this is a very long note", timestamp: Date.now() + 200000000 },
-  { id: 3, body: "This is a third test ", timestamp: Date.now() - 100000000 },
-  { id: 4, body: "This is a fourth test ", timestamp: Date.now() },
+  { id: 3, body: "", timestamp: Date.now() - 100000000 },
+  { id: 4, body: "This is a fourth test", timestamp: Date.now() },
 ];
 
 var htmlString = "";
 transformNotes(notes).forEach(function (note) {
   htmlString += `
-    <div class="note-selector">
+    <div class="note-selector" onClick="selectNote(this)">
       <p class="note-selector-title">${formatTitle(note.body)}</p>
       <p class="note-selector-timestamp">${formatTimestamp(note.timestamp)}</p>
     </div>
