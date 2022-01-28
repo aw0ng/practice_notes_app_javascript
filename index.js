@@ -39,6 +39,13 @@ function updateNote() {
   var $note = document.querySelector(".note-selector.active");
   $note.dataset.body = body;
   $note.dataset.timestamp = timestamp;
+
+  document.querySelector(".note-editor-info").innerHTML = formatTimestamp(timestamp);
+  document.querySelector(".note-selector.active .note-selector-title").innerHTML = formatTitle(body);
+  document.querySelector(".note-selector.active .note-selector-timestamp").innerHTML = formatTimestamp(timestamp);
+
+  document.querySelector(".note-selectors").removeChild($note);
+  document.querySelector(".note-selectors").prepend($note);
 }
 
 var notes = [
@@ -53,7 +60,7 @@ transformNotes(notes).forEach(function (note) {
   htmlString += `
     <div 
       class="note-selector" 
-      onClick="selectNote(this)" 
+      onclick="selectNote(this)" 
       data-body="${note.body}"
       data-timestamp="${note.timestamp}"
       >
@@ -63,4 +70,4 @@ transformNotes(notes).forEach(function (note) {
     `;
 });
 document.querySelector(".note-selectors").innerHTML = htmlString;
-document.querySelector(".note-editor-input").addEventListener("input, updateNote");
+document.querySelector(".note-editor-input").addEventListener("input", updateNote);
