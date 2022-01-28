@@ -31,6 +31,16 @@ function selectNote($note) {
   document.querySelector(".note-editor-info").innerHTML = formatTimestamp(parseInt($note.dataset.timestamp));
 }
 
+function updateNote() {
+  var body = this.value;
+  var timestamp = Date.now();
+  console.log(body, timestamp);
+
+  var $note = document.querySelector(".note-selector.active");
+  $note.dataset.body = body;
+  $note.dataset.timestamp = timestamp;
+}
+
 var notes = [
   { id: 1, body: "This is a first test", timestamp: Date.now() - 300000000 },
   { id: 2, body: "This is a second test this is a very long note", timestamp: Date.now() + 200000000 },
@@ -53,3 +63,4 @@ transformNotes(notes).forEach(function (note) {
     `;
 });
 document.querySelector(".note-selectors").innerHTML = htmlString;
+document.querySelector(".note-editor-input").addEventListener("input, updateNote");
