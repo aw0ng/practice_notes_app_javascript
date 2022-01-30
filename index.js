@@ -34,7 +34,6 @@ function selectNote($note) {
 function updateNote() {
   var body = this.value;
   var timestamp = Date.now();
-  console.log(body, timestamp);
 
   var $note = document.querySelector(".note-selector.active");
   $note.dataset.body = body;
@@ -46,6 +45,24 @@ function updateNote() {
 
   document.querySelector(".note-selectors").removeChild($note);
   document.querySelector(".note-selectors").prepend($note);
+}
+
+function createNote() {
+  var note = { id: Date.now(), body: "", timestamp: Date.now() };
+  var htmlString = `
+    <div 
+      class="note-selector" 
+      onclick="selectNote(this)" 
+      data-body="${note.body}"
+      data-timestamp="${note.timestamp}"
+      >
+      <p class="note-selector-title">${formatTitle(note.body)}</p>
+      <p class="note-selector-timestamp">${formatTimestamp(note.timestamp)}</p>
+    </div>
+    `;
+  document.querySelector(".note-selectors").insertAdjacentHTML("afterbegin", htmlString);
+
+  document.querySelector(".note-selector").click();
 }
 
 var notes = [
@@ -71,3 +88,4 @@ transformNotes(notes).forEach(function (note) {
 });
 document.querySelector(".note-selectors").innerHTML = htmlString;
 document.querySelector(".note-editor-input").addEventListener("input", updateNote);
+document.querySelector(".toolbar-button-new").addEventListener("click", createNote);
