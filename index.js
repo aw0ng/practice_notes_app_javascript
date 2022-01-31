@@ -65,6 +65,12 @@ function createNote() {
   document.querySelector(".note-selector").click();
 }
 
+function deleteNote() {
+  var $note = document.querySelector(".note-selector.active");
+  var $parent = document.querySelector(".note-selectors");
+  $parent.removeChild($note);
+}
+
 var notes = [
   { id: 1, body: "This is a first test", timestamp: Date.now() - 300000000 },
   { id: 2, body: "This is a second test this is a very long note", timestamp: Date.now() + 200000000 },
@@ -89,3 +95,4 @@ transformNotes(notes).forEach(function (note) {
 document.querySelector(".note-selectors").innerHTML = htmlString;
 document.querySelector(".note-editor-input").addEventListener("input", updateNote);
 document.querySelector(".toolbar-button-new").addEventListener("click", createNote);
+document.querySelector(".toolbar-button-delete").addEventListener("click", deleteNote);
