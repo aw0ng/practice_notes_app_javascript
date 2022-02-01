@@ -48,6 +48,8 @@ function updateNote() {
 }
 
 function createNote() {
+  document.querySelector(".note-editor").style.display = "";
+
   var note = { id: Date.now(), body: "", timestamp: Date.now() };
   var htmlString = `
     <div 
@@ -61,14 +63,21 @@ function createNote() {
     </div>
     `;
   document.querySelector(".note-selectors").insertAdjacentHTML("afterbegin", htmlString);
-
   document.querySelector(".note-selector").click();
 }
 
 function deleteNote() {
   var $note = document.querySelector(".note-selector.active");
-  var $parent = document.querySelector(".note-selectors");
-  $parent.removeChild($note);
+  if ($note) {
+    var $parent = document.querySelector(".note-selectors");
+    $parent.removeChild($note);
+    var $newNote = document.querySelector(".note-selector");
+    if ($newNote) {
+      $newNote.click();
+    } else {
+      document.querySelector(".note-editor").style.display = "none";
+    }
+  }
 }
 
 var notes = [
