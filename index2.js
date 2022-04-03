@@ -38,7 +38,7 @@ function updateNote() {
   $note.data({ body: body, timestamp: timestamp });
 
   $(".note-editor-info").html(formatTimestamp(timestamp));
-  $(".note-selector-active .note-selector-title").html(formatTitle(body));
+  $(".note-selector.active .note-selector-title").html(formatTitle(body));
   $(".note-selector.active .note-selector-timestamp").html(formatTimestamp(timestamp));
 
   $note.detach();
