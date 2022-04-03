@@ -62,12 +62,36 @@ function createNote() {
 }
 
 function deleteNote() {
-  $(".note-selector.active").remove();
+  var $removedNotes = $(".note-selector.active").remove();
   var $notes = $(".note-selector");
-  if ($notes.length > 0) {
+  if ($notes.length > 0 && $removedNotes.length > 0) {
     $notes.first().click();
   } else {
     $(".note-editor").hide();
+  }
+}
+
+function searchNote() {
+  var searchText = $(this).val().toLowerCase();
+  $(".note-selector").each(function () {
+    var $note = $(this);
+    var noteText = $note.data().body.toLowerCase();
+    if (noteText.indexOf(searchText) === -1) {
+      $note.hide();
+      $note.removeClass("active");
+    } else {
+      $note.show();
+    }
+  });
+
+  if ($(".note-selector.active").length === 0) {
+    var $visibleNotes = $(".note-selector:visible");
+    if ($visibleNotes.length > 0) {
+      $visibleNotes.first().click();
+      $(".note-editor").show();
+    } else {
+      $(".note-editor").hide();
+    }
   }
 }
 
@@ -92,3 +116,4 @@ transformNotes(notes).forEach(function (note) {
 $(".note-editor-input").on("input", updateNote);
 $(".toolbar-button-new").on("click", createNote);
 $(".toolbar-button-delete").on("click", deleteNote);
+$(".toolbar-search").on("input", searchNote);
